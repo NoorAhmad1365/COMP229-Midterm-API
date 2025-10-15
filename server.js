@@ -101,17 +101,22 @@ app.get('/api/games/:id', (req, res) => {
 // POST /api/games
 // Description: Add a new game
 // Task: Implement logic to add a new game to the array
+
 app.post('/api/games', (req, res) => {
   // TODO: Add logic to add a new game to the array
   
-  // ***************************************************************
-  // ***************************************************************
-  // ***************  Implement your code here  ********************
-  // ***************************************************************
-  // ***************************************************************
-
-  // Don't forget to remove the line below:
-  res.status(501).send('Not Implemented');
+ const newGame = req.body;
+  
+  // Validation - check if all required fields are present
+  if (!newGame.title || !newGame.genre || !newGame.platform || !newGame.year || !newGame.developer) {
+    return res.status(400).json({ error: 'All fields are required: title, genre, platform, year, developer' });
+  }
+  
+  // Add the new game to the array
+  games.push(newGame);
+  
+  // Return 201 Created status with the new game
+  res.status(201).json(newGame);
 });
 
 // PUT /api/games/:id
