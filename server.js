@@ -71,14 +71,15 @@ app.get('/api/games', (req, res) => {
 app.get('/api/games/filter', (req, res) => {
   // TODO: Add logic to filter games by genre
   
-  // ***************************************************************
-  // ***************************************************************
-  // ***************  Implement your code here  ********************
-  // ***************************************************************
-  // ***************************************************************
-
-  // Don't forget to remove the line below:
-  res.status(501).send('Not Implemented');
+  const genre = req.query.genre;
+  if (!genre) {
+    return res.status(400).json({ error: 'Genre parameter is required' });
+  }
+  
+  const filteredGames = games.filter(game => 
+    game.genre.toLowerCase().includes(genre.toLowerCase())
+  );
+  res.json(filteredGames)
 });
 
 // GET /api/games/:id
