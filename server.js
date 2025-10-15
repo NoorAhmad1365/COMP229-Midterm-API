@@ -148,17 +148,22 @@ app.put('/api/games/:id', (req, res) => {
 // DELETE /api/games/:id
 // Description: Remove a game by ID
 // Task: Implement logic to remove a game by its index (ID)
+
 app.delete('/api/games/:id', (req, res) => {
   // TODO: Add logic to remove a game by its index
   
-  // ***************************************************************
-  // ***************************************************************
-  // ***************  Implement your code here  ********************
-  // ***************************************************************
-  // ***************************************************************
-
-  // Don't forget to remove the line below:
-  res.status(501).send('Not Implemented');
+  const id = parseInt(req.params.id);
+  
+  // Check if ID is valid
+  if (isNaN(id) || id < 0 || id >= games.length) {
+    return res.status(404).json({ error: 'Game not found' });
+  }
+  
+  // Remove the game from the array and get the deleted game
+  const deletedGame = games.splice(id, 1)[0];
+  
+  // Return the deleted game
+  res.json(deletedGame);
 });
 
 // Start the server
