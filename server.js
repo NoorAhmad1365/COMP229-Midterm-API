@@ -85,17 +85,17 @@ app.get('/api/games/filter', (req, res) => {
 // GET /api/games/:id
 // Description: Get a specific game by ID
 // Task: Implement logic to return a game by its index (ID)
+
 app.get('/api/games/:id', (req, res) => {
   // TODO: Add logic to return a game by its index (ID)
+  const id = parseInt(req.params.id);
   
-  // ***************************************************************
-  // ***************************************************************
-  // ***************  Implement your code here  ********************
-  // ***************************************************************
-  // ***************************************************************
-
-  // Don't forget to remove the line below:
-  res.status(501).send('Not Implemented');
+  if (isNaN(id) || id < 0 || id >= games.length) {
+    return res.status(404).json({ error: 'Game not found' });
+  }
+  
+  res.json(games[id]);
+  
 });
 
 // POST /api/games
