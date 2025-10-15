@@ -125,14 +125,24 @@ app.post('/api/games', (req, res) => {
 app.put('/api/games/:id', (req, res) => {
   // TODO: Add logic to update a game by its index
   
-  // ***************************************************************
-  // ***************************************************************
-  // ***************  Implement your code here  ********************
-  // ***************************************************************
-  // ***************************************************************
-
-  // Don't forget to remove the line below:
-  res.status(501).send('Not Implemented');
+  const id = parseInt(req.params.id);
+  const updatedGame = req.body;
+  
+  // Check if ID is valid
+  if (isNaN(id) || id < 0 || id >= games.length) {
+    return res.status(404).json({ error: 'Game not found' });
+  }
+  
+  // Validation - check if all required fields are present
+  if (!updatedGame.title || !updatedGame.genre || !updatedGame.platform || !updatedGame.year || !updatedGame.developer) {
+    return res.status(400).json({ error: 'All fields are required: title, genre, platform, year, developer' });
+  }
+  
+  // Update the game in the array
+  games[id] = updatedGame;
+  
+  // Return the updated game
+  res.json(updatedGame);
 });
 
 // DELETE /api/games/:id
