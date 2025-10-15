@@ -59,17 +59,10 @@ app.get('/', (req, res) => {
 // GET /api/games
 // Description: Get all games
 // Task: Implement logic to return the full list of games
+
 app.get('/api/games', (req, res) => {
   // TODO: Add logic to return all games
-
-  // ***************************************************************
-  // ***************************************************************
-  // ***************  Implement your code here  ********************
-  // ***************************************************************
-  // ***************************************************************
-
-  // Don't forget to remove the line below:
-  res.status(501).send('Not Implemented');
+  res.json(games);
 });
 
 // GET /api/games/filter?genre=[genre name]
